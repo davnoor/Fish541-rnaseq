@@ -1,0 +1,17 @@
+---
+title: "data explore"
+output: html_document
+date: "2024-04-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{bash}
+/home/shared/FastQC-0.12.1/fastqc \
+--threads 10 \ 
+--outdir ../output \
+../data/*gz
+```
+

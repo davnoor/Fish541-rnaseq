@@ -1,0 +1,3 @@
+Sample	FastQC_mqc-generalstats-fastqc-percent_duplicates	FastQC_mqc-generalstats-fastqc-percent_gc	FastQC_mqc-generalstats-fastqc-avg_sequence_length	FastQC_mqc-generalstats-fastqc-median_sequence_length	FastQC_mqc-generalstats-fastqc-percent_fails	FastQC_mqc-generalstats-fastqc-total_sequences
+s_4_sequenceYOJI1	52.31207696750007	53.0	36.0	36	18.181818181818183	9539206.0
+s_4_sequenceYOJI2	70.30899004332892	53.0	36.0	36	27.27272727272727	14924096.0

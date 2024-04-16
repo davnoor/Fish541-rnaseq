@@ -1,0 +1,3 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	s_4_sequenceYOJI2	/Users/divyashreeavnoor/Desktop/RNAseq/s_4_sequenceYOJI2_fastqc.zip
+FastQC	all_sections	s_4_sequenceYOJI1	/Users/divyashreeavnoor/Desktop/RNAseq/s_4_sequenceYOJI1_fastqc.zip

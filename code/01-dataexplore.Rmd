@@ -12,6 +12,12 @@ knitr::opts_chunk$set(echo = TRUE)
 /home/shared/FastQC-0.12.1/fastqc \
 --threads 40 \
 --outdir ../output/ \
+/home/shared/8TB_HDD_02/davnoor/github/Fish541-rnaseq/data/*.gz
+```
+```{bash}
+/home/shared/FastQC-0.12.1/fastqc \
+--threads 40 \
+--outdir ../output/ \
 /home/shared/8TB_HDD_02/davnoor/data/*.gz
 ```
 

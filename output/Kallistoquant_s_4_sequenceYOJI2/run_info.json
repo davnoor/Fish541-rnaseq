@@ -1,0 +1,13 @@
+{
+	"n_targets": 112897,
+	"n_bootstraps": 0,
+	"n_processed": 14924096,
+	"n_pseudoaligned": 6385413,
+	"n_unique": 1865165,
+	"p_pseudoaligned": 42.8,
+	"p_unique": 12.5,
+	"kallisto_version": "0.46.1",
+	"index_version": 10,
+	"start_time": "Tue Apr 16 15:19:55 2024",
+	"call": "/home/shared/kallisto/kallisto quant -i ../code/kallisto_index_Salmosalar.idx -t 20 -o ../output/Kallistoquant_s_4_sequenceYOJI2 --single -l 50 -s 0.2 ../data/s_4_sequenceYOJI2.txt.gz"
+}

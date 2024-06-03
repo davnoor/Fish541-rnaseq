@@ -1,0 +1,176 @@
+---
+title: "02-align"
+format: html
+editor: visual
+---
+
+## 
+```{r}
+```
+
+```{bash}
+head ../data/rna.fna
+```
+```{r}
+system("/home/shared/kallisto/kallisto index --index='kallisto_index_Salmosalar.idx' ../data/rna.fna")
+```
+```{bash}
+/home/shared/kallisto/kallisto quant \
+-i ../code/kallisto_index_Salmosalar.idx \
+-t 20 \
+-o ../output/Kallistoquant_s_4_sequenceYOJI1 \
+../data/s_4_sequenceYOJI1.txt.gz \
+--single \
+-l 50 \
+-s 0.2
+```
+```{bash}
+/home/shared/kallisto/kallisto quant \
+-i ../code/kallisto_index_Salmosalar.idx \
+-t 20 \
+-o ../output/Kallistoquant_s_4_sequenceYOJI2 \
+../data/s_4_sequenceYOJI2.txt.gz \
+--single \
+-l 50 \
+-s 0.2
+```
+```{bash}
+head ../output/Kallistoquant_s_4_sequenceYOJI1/abundance.tsv
+```
+```{bash}
+```{bash}
+/home/shared/trinityrnaseq-v2.12.0/util/abundance_estimates_to_matrix.pl \
+--est_method kallisto \
+    --gene_trans_map none \
+    --out_prefix ../output/Kallistoquant_s_4_sequenceYOJI1 \
+    --name_sample_by_basedir \
+    ../output/Kallistoquant_s_4_sequenceYOJI1/abundance.tsv \
+    ../output/Kallistoquant_s_4_sequenceYOJI2/abundance.tsv \
+    
+```
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("DESeq2")
+```
+
+
+
+```{r}
+library(DESeq2)
+library(tidyverse)
+library(RColorBrewer)
+library(data.table)
+```
+```{r}
+countmatrix <- read.delim("../output/Kallistoquant_s_4_sequenceYOJI1.isoform.counts.matrix", header = TRUE, sep = '\t')
+rownames(countmatrix) <- countmatrix$X
+countmatrix <- countmatrix[,-1]
+head(countmatrix)
+```
+```{r}
+countmatrix <- round(countmatrix, 0)
+str(countmatrix)
+```
+```{r}
+deseq2.colData <- data.frame(condition=factor(c(rep("heatkilled", 1), rep("wastingdisease", 1))), 
+                             type=factor(rep("single-read", 2)))
+rownames(deseq2.colData) <- colnames(data)
+deseq2.dds <- DESeqDataSetFromMatrix(countData = countmatrix,
+                                     colData = deseq2.colData, 
+                                     design = ~ condition)
+```
+
+```{r}
+deseq2.dds <- DESeq(deseq2.dds)
+deseq2.res <- results(deseq2.dds)
+deseq2.res <- deseq2.res[order(rownames(deseq2.res)), ]
+```
+
+```{bash}
+/home/shared/trinityrnaseq-v2.12.0/util/abundance_estimates_to_matrix.pl \
+--est_method kallisto \
+    --gene_trans_map none \
+    --out_prefix ../output/Seastar_wastingdisease \
+    --name_sample_by_basedir \
+    ../data/3291_5903_10007_H94MGADXX_V_CF71_ATCACG/abundance.tsv \
+    ../data/3291_5903_10008_H94MGADXX_V_CF34_CGATGT/abundance.tsv \
+    ../data/3291_5903_10009_H94MGADXX_V_CF26_TTAGGC/abundance.tsv \
+    ../data/3291_5903_10010_H94MGADXX_HK_CF2_TGACCA/abundance.tsv \
+    ../data/3291_5903_10011_H94MGADXX_HK_CF35_ACAGTG/abundance.tsv \
+    ../data/3291_5903_10012_H94MGADXX_HK_CF70_GCCAAT/abundance.tsv \
+    
+```
+```{r}
+countmatrix <- read.delim("../output/Seastar_wastingdisease.isoform.counts.matrix", header = TRUE, sep = '\t')
+rownames(countmatrix) <- countmatrix$X
+countmatrix <- countmatrix[,-1]
+head(countmatrix)
+```
+```{r}
+countmatrix <- round(countmatrix, 0)
+str(countmatrix)
+```
+```{r}
+deseq2.colData <- data.frame(condition=factor(c(rep("heatkilled", 3), rep("wastingdisease", 3))), 
+                             type=factor(rep("single-read", 6)))
+rownames(deseq2.colData) <- colnames(data)
+deseq2.dds <- DESeqDataSetFromMatrix(countData = countmatrix,
+                                     colData = deseq2.colData, 
+                                     design = ~ condition)
+```
+
+```{r}
+deseq2.dds <- DESeq(deseq2.dds)
+deseq2.res <- results(deseq2.dds)
+deseq2.res <- deseq2.res[order(rownames(deseq2.res)), ]
+```
+
+```{r}
+head(deseq2.res)
+```
+```{r}
+tmp <- deseq2.res
+# The main plot
+plot(tmp$baseMean, tmp$log2FoldChange, pch=20, cex=0.45, ylim=c(-3, 3), log="x", col="darkgray",
+     main="DEG Dessication  (pval <= 0.05)",
+     xlab="mean of normalized counts",
+     ylab="Log2 Fold Change")
+# Getting the significant points and plotting them again so they're a different color
+tmp.sig <- deseq2.res[!is.na(deseq2.res$padj) & deseq2.res$padj <= 0.05, ]
+points(tmp.sig$baseMean, tmp.sig$log2FoldChange, pch=20, cex=0.45, col="red")
+# 2 FC lines
+abline(h=c(-1,1), col="blue")
+```
+```{r}
+write.table(tmp.sig, "../output/DEGlist.tab", row.names = T)
+```
+
+```{r}
+library(pheatmap)
+```
+
+```{r}
+vsd <- vst(deseq2.dds, blind = FALSE)
+plotPCA(vsd, intgroup = "condition")
+```
+
+
+```{r}
+# Select top 20 differentially expressed genes
+res <- results(deseq2.dds)
+res_ordered <- res[order(res$padj), ]
+top_genes <- row.names(res_ordered)[1:50]
+
+# Extract counts and normalize
+counts <- counts(deseq2.dds, normalized = TRUE)
+counts_top <- counts[top_genes, ]
+
+# Log-transform counts
+log_counts_top <- log2(counts_top + 1)
+
+# Generate heatmap
+pheatmap(log_counts_top, scale = "row")
+```
+

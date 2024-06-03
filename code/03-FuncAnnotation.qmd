@@ -1,0 +1,19 @@
+
+#Get the fasta file from NCBI 
+```{bash}
+cd ../data
+curl -O https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
+mv uniprot_sprot.fasta.gz uniprot_sprot_r2024_02.fasta.gz
+gunzip -k uniprot_sprot_r2024_02.fasta.gz
+```
+#create database using SP
+```{bash}
+mkdir ../blastdb
+/home/shared/ncbi-blast-2.11.0+/bin/makeblastdb \
+-in ../Fish541-rnaseq/uniprot_sprot_r2023_01.fasta \
+-dbtype prot \
+-out ../blastdb/uniprot_sprot_r2023_01
+```
+
+
+

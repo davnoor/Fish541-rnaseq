@@ -3,11 +3,12 @@ Project background: This project was part of the FISH 541 lab. The purpose of th
 
 Step 1: Quality control
 FastQC was run to assess the quality of the raw fastq file. A multiQC analysis was then be run on this output file to obtain a single consolidated report of all the fastQC files as fastQC performs the analysis on each individual sample. The output of multiQC is an html report file (multiqc_report.html).
-``{bash}
+```{bash}
 /home/shared/FastQC-0.12.1/fastqc \
 --threads 40 \
 --outdir ../output/ \
-/home/shared/8TB_HDD_02/davnoor/data/*.gz”
+/home/shared/8TB_HDD_02/davnoor/data/*.gz
+```
 
 
 

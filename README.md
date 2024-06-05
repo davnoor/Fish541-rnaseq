@@ -8,7 +8,7 @@ FastQC was run to assess the quality of the raw fastq file. A multiQC analysis w
 --threads 40 \
 --outdir ../output/ \
 /home/shared/8TB_HDD_02/davnoor/data/*.gz”
-![image](https://github.com/davnoor/Fish541-rnaseq/assets/165844585/29f00ae9-00aa-4606-8146-6cd8d900e03e)
+
 
 
 Step 2: Alignment/pseudoalignment

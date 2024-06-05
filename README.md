@@ -1,6 +1,10 @@
 # Fish541-rnaseq
-Project background: This project was part of the FISH 541 lab. The purpose of this project was to go through the process of RNA sequencing data analysis, starting with quality control, alignment (or psuedoalignment in this case), finding DEGs and finally functional analysis/gene ontology. The process was as follows: 
+Project background: This project was part of the FISH 541 lab. The purpose of this project was to go through the process of RNA sequencing data analysis, starting with quality control, alignment (or psuedoalignment in this case), finding DEGs and finally functional analysis/gene ontology. 
+The data used for this project was obtained from the Roberts lab nightingale directory. For the first half (until the DEG list step), atlantic salmon data were used. We then switched to seastar wasting disease data as it contained more samples (6 vs 2 samples) and allowed for better visualization for the purposes of this project. In my data and output directories, any YOJI file is related to atlantic salmon and the seastar samples are labled as "seastarwastingdisease". 
 
+
+
+The process was as follows: 
 Step 1: Quality control
 FastQC was run to assess the quality of the raw fastq file. A multiQC analysis was then be run on this output file to obtain a single consolidated report of all the fastQC files as fastQC performs the analysis on each individual sample. The output of multiQC is an html report file (multiqc_report.html).
 ```{bash}

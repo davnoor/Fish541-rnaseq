@@ -1,11 +1,19 @@
 # Fish541-rnaseq
-#Note: All code for this experiment can be found under the code folder 
-#Step 1: Quality control
-#FastQC was run to assess the quality of the raw fastq file. A multiQC analysis was then be run on this output file to obtain a single consolidated report of all the fastQC #files as fastQC performs the analysis on each individual sample. The output of multiQC is an html report file (multiqc_report.html).
-#Step 2: Alignment/pseudoalignment
-#Kallisto was used to perform pseudoaligmnent on salmo salar samples. A reference transcriptome was obtained from NCBI (rna.fna file that is uploaded onto my data folder) 
- This file should then be indexed to facilitate the k-mer generation that is
-required for Kallisto as follows:
+Project background: This project was part of the FISH 541 lab. The purpose of this project was to go through the process of RNA sequencing data analysis, starting with quality control, alignment (or psuedoalignment in this case), finding DEGs and finally functional analysis/gene ontology. The process was as follows: 
+
+Step 1: Quality control
+FastQC was run to assess the quality of the raw fastq file. A multiQC analysis was then be run on this output file to obtain a single consolidated report of all the fastQC files as fastQC performs the analysis on each individual sample. The output of multiQC is an html report file (multiqc_report.html).
+``{bash}
+/home/shared/FastQC-0.12.1/fastqc \
+--threads 40 \
+--outdir ../output/ \
+/home/shared/8TB_HDD_02/davnoor/data/*.gz”
+![image](https://github.com/davnoor/Fish541-rnaseq/assets/165844585/29f00ae9-00aa-4606-8146-6cd8d900e03e)
+
+
+Step 2: Alignment/pseudoalignment
+Kallisto was used to perform pseudoaligmnent on salmo salar samples. A reference transcriptome was obtained from NCBI (rna.fna file that is uploaded onto my data folder) 
+ This file should then be indexed to facilitate the k-mer generation that is required for Kallisto as follows:
 ```{r}
 system(&quot;/home/shared/kallisto/kallisto index --index=&#39;kallisto_index_Salmosalar.idx&#39; ../data/rna.fna&quot;)
 ```
@@ -20,7 +28,7 @@ After indexing, align the sequence using the following code:
 -l 50 \
 -s 0.2
 ```
-This step (alignment) should be repeated for each of the samples. The output will be an
+This step (alignment) was repeated for each of the (two) samples. The output was an
 abundance.tsv file which should be saved in the output folder as instructed in the code. This file
 contains abundance estimates (how much of a particular transcript is found in this sample, aka
 expression level). Next, a trinity function is run to convert these abundance estimates into a

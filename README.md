@@ -2,7 +2,7 @@
 Project background: This project was part of the FISH 541 lab. The purpose of this project was to go through the process of RNA sequencing data analysis, starting with quality control, alignment (or psuedoalignment in this case), finding DEGs and finally functional analysis/gene ontology. 
 The data used for this project was obtained from the Roberts lab nightingale directory. For the first half (until the DEG list step), atlantic salmon data were used. We then switched to seastar wasting disease data as it contained more samples (6 vs 2 samples) and allowed for better visualization for the purposes of this project. In my data and output directories, any YOJI file is related to atlantic salmon and the seastar samples are labled as "seastarwastingdisease". 
 The Atlantic salmon samples were downloaded from https://owl.fish.washington.edu/nightingales/S_salar/. All the 8C_26psu samples were used for the first half of this project. 
-For the seastar wasting disease samples, @Steven Roberts directly uploaded the abundance.tsv files of each sample into my Raven directory. These samples can be found in 
+For the seastar wasting disease samples, @Steven Roberts directly uploaded the abundance.tsv files of each sample into my Raven directory. These samples can be found in my data folder in this repository under "seastar abundance.tsv files"
 
 
 

@@ -135,7 +135,7 @@ mkdir ../blastdb
 A BLASTX search was then run to identify protein sequences that corresponded to my
 transcriptome. For the purpose of this lab, a transcriptome (Phel_transcriptome) was obtained from the
 Roberts lab for seastar wasting disease and was output in a BLAST table format:
-This file can be found in my data folder in this repository under "Phel_transcriptome.fa"
+This file can be found on owl- https://owl.fish.washington.edu/halfshell/genomic-databank/Phel_transcriptome.fasta
 ```{bash}
 /home/shared/ncbi-blast-2.15.0+/bin/blastx \
 -query ../data/Phel_transcriptome.fa \
